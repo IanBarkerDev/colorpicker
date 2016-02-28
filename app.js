@@ -81,7 +81,6 @@ var Tile = React.createClass({
 
         var hsl = convertToHSL(t);
         var color;
-        console.log(hsl);
         if(hsl.l < 30) {
             color = "#fff";
         } else {
@@ -160,7 +159,6 @@ function convertToHSL(str) {
     var e = str[4];
     var f = str[5];
 
-    console.log(a + " " + q + " " + c + " " + d + " " + e + " " + f);
 
     var r, g, b;
 
@@ -176,8 +174,6 @@ function convertToHSL(str) {
     r = a * 16 + +q;
     g = c * 16 + +d;
     b = e * 16 + +f;
-
-    console.log(r + " " + g + " " + b);
 
     r = r / 255;
     g = g / 255;
