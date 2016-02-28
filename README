@@ -1,0 +1,3 @@
+A simple color palette storage space created with React.
+First version goals are to have it done for a client side.
+Second version is to add a backend for user's to save palettes.
