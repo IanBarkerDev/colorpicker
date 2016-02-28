@@ -1,0 +1,43 @@
+body #react {
+  text-align: center;
+  border: 1px solid #000;
+  border-radius: 10px;
+  background-image: linear-gradient(to bottom, #1F5090 0%, #fff 100%); }
+  body #react .menubar {
+    border-bottom: 1px solid #000; }
+  body #react .main {
+    padding: 25px; }
+    body #react .main .tile {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 25px;
+      display: inline-block;
+      border-radius: 5px; }
+      body #react .main .tile:hover {
+        cursor: pointer; }
+      body #react .main .tile#newTileDiv {
+        font-size: 50px;
+        background-color: #fff; }
+        body #react .main .tile#newTileDiv #newTileFirst {
+          font-size: 80px; }
+        body #react .main .tile#newTileDiv #newTileSecond input, body #react .main .tile#newTileDiv #newTileSecond button {
+          display: block; }
+        body #react .main .tile#newTileDiv #newTileSecond input {
+          width: 80px;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%); }
+        body #react .main .tile#newTileDiv #newTileSecond button {
+          position: absolute;
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%); }
+      body #react .main .tile .center {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }
+
+/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,65 @@
+$border: #000;
+
+body {
+  #react {
+    text-align: center;
+    border: 1px solid $border;
+    border-radius: 10px;
+    background-image: linear-gradient(to bottom, #1F5090 0%, #fff 100%);
+    .menubar {
+      border-bottom: 1px solid $border;
+    }
+
+    .main {
+      padding: 25px;
+      .tile {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 25px;
+        display: inline-block;
+        border-radius: 5px;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        &#newTileDiv {
+          font-size: 50px;
+          background-color: #fff;
+
+          #newTileFirst {
+            font-size: 80px;
+          }
+
+          #newTileSecond {
+            input, button {
+              display: block;
+            }
+            input {
+              width: 80px;
+              position: absolute;
+              top: 50%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+            }
+
+            button {
+              position: absolute;
+              bottom: 0;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+          }
+        }
+
+        .center {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+}
