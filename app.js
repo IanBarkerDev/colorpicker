@@ -73,10 +73,16 @@ var Tile = React.createClass({
         var t = this.props.t;
         var index = this.props.index;
 
-        var num = convertToDecimal(t);
-        var color;
+        if(t.length < 6) {
+            var arrT = t.split("");
+            t = arrT[0] + arrT[1] + arrT[1] + arrT[2] + arrT[2] + arrT[3] + arrT[3];
+        }
 
-        if(num < 16777215 / 2) {
+
+        var hsl = convertToHSL(t);
+        var color;
+        console.log(hsl);
+        if(hsl.l < 30) {
             color = "#fff";
         } else {
             color = "#000";
@@ -145,26 +151,84 @@ var NewTile = React.createClass({
     }
 });
 
-function convertToDecimal(str) {
+function convertToHSL(str) {
     str = str.substr(1);
-    str = str.split("");
+    var a = str[0];
+    var q = str[1];
+    var c = str[2];
+    var d = str[3];
+    var e = str[4];
+    var f = str[5];
 
-    var total = 0;
+    console.log(a + " " + q + " " + c + " " + d + " " + e + " " + f);
 
-    if(str.length === 3) {
-        total += str[0] + str[1] * 16 + str[2] * 256 + str[0] * 256 * 16 + str[1] * 256 * 256 + str[2] * 16 * 256 * 256;
+    var r, g, b;
 
+    a = convertHexToNum(a);
+    q = convertHexToNum(q);
+    c = convertHexToNum(c);
+    d = convertHexToNum(d);
+    e = convertHexToNum(e);
+    f = convertHexToNum(f);
+
+
+
+    r = a * 16 + +q;
+    g = c * 16 + +d;
+    b = e * 16 + +f;
+
+    console.log(r + " " + g + " " + b);
+
+    r = r / 255;
+    g = g / 255;
+    b = b / 255;
+
+    var max = Math.max(r, g, b);
+    var min = Math.min(r, g, b);
+
+    var h, s, l;
+    l = (min + max) / 2;
+
+    if(min === max) {
+        h = 0;
+        s = 0;
     } else {
-        total += str[0] + str[1] * 16 + str[2] * 256 + str[3] * 256 * 16 + str[4] * 256 * 256 + str[5] * 16 * 256 * 256;
+        var diff = max - min;
+        s = (l > .5 ? diff / (2 - max - min) : diff / (max + min));
+
+        switch(max) {
+            case r: h = (g - b) / diff + (g < b ? 6 : 0); break;
+            case g: h = (b - r) / diff + 2; break;
+            case b: h = (r - g) / diff + 4; break;
+        }
+
+        h = h / 6;
     }
 
-    return total;
+    return {h: (h * 100 + .5) | 0, s: (s * 100 + .5) | 0, l: (l * 100 + .5) | 0};
+
+
+}
+
+function convertHexToNum(a) {
+    switch(a) {
+        case "a": a = 10; break;
+        case "b": a = 11; break;
+        case "c": a = 12; break;
+        case "d": a = 13; break;
+        case "e": a = 14; break;
+        case "f": a = 15; break;
+        default: break;
+    }
+
+    return a;
 }
 
 function deleteElement(arr, e) {
     for(var i = 0; i < arr.length; i ++) {
         if(arr[i] === e) {
             arr.splice(i, 1);
+            break;
         }
     }
 }

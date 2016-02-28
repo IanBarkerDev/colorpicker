@@ -13,7 +13,8 @@ body #react {
       height: 100px;
       margin: 25px;
       display: inline-block;
-      border-radius: 5px; }
+      border-radius: 5px;
+      font-size: 30px; }
       body #react .main .tile:hover {
         cursor: pointer; }
       body #react .main .tile#newTileDiv {
