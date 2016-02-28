@@ -23,6 +23,7 @@ var MenuBar = React.createClass({
            <div className="menubar">
                <h1>Color Picker</h1>
                <p>Begin by selecting your first tile and entering a color.</p>
+               <p>Click to delete a tile.</p>
            </div>
        )
    }
@@ -65,6 +66,12 @@ var Main = React.createClass({
 });
 
 var Tile = React.createClass({
+    getInitialState: function() {
+        return({
+            newTile: ""
+        })
+    },
+
     deleteTile: function() {
         this.props.handleDeleteTile(this.props.t);
     },
@@ -92,7 +99,9 @@ var Tile = React.createClass({
         };
 
         return (
-            <div className="tile" id={index} style={divStyle} onClick={this.deleteTile}><span className="center">{t.substr(1)}</span></div>
+            <div className="tile" id={index} onClick={this.deleteTile} style={divStyle}>
+                <span className="center" onClick={this.switchDiv}>{t.substr(1)}</span>
+            </div>
         )
     }
 });
@@ -111,7 +120,8 @@ var NewTile = React.createClass({
         })
     },
 
-    addTile: function() {
+    addTile: function(e) {
+        e.preventDefault();
         if(this.state.newTile.length === 0) {
             this.switchDiv();
         } else {
@@ -121,13 +131,18 @@ var NewTile = React.createClass({
         this.setState({
             newTile: "",
             secondVisible: false
-        })
+        });
+
+        return false;
     },
 
     switchDiv: function() {
-        this.setState({
-            secondVisible: true
-        })
+        if(!this.state.secondVisible) {
+            this.setState({
+                secondVisible: true
+            })
+        }
+
     },
 
     render: function() {
@@ -139,11 +154,12 @@ var NewTile = React.createClass({
             display: (this.state.secondVisible ? "block" : "none")
         };
         return(
-            <div className="tile" id="newTileDiv">
-                <span className="center" style={firstStyle} id="newTileFirst" onClick={this.switchDiv}>+</span>
+            <div className="tile" id="newTileDiv" onClick={this.switchDiv}>
+                <span className="center" style={firstStyle} id="newTileFirst">+</span>
                 <div style={secondStyle} id="newTileSecond">
-                    <input type="text" onChange={this.updateNewTile} id="newTile"/>
-                    <button type="button" onClick={this.addTile}>Submit</button>
+                    <form onSubmit={this.addTile}>
+                        <input type="text" onChange={this.updateNewTile} id="newTile"/>
+                    </form>
                 </div>
             </div>
         )
